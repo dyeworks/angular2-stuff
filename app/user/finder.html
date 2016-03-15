@@ -1,0 +1,86 @@
+﻿
+<style>
+    /*.large-Modal .modal-dialog {
+        width: 700px;
+        height: 400px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }*/
+
+    .app-modal-window .modal-dialog {
+        width: 45%;
+    }
+
+</style>
+<div ng-controller="appUserFinder as vm">
+    <div class="well well-sm" style="width:800px;">
+        <div class="toolbarStyle">
+            <button class="btn btn-danger btn-sm glyphicon glyphicon-remove" type="button" ng-click="vm.close()" ng-show="islookup" style="margin-left: 88%"> Close</button>
+        </div>
+        <form name="userFinder" class="form-horizontal" role="form" novalidate>
+            <!-- ng-submit="vm.findPremise()" -->
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="code" class="control-label col-sm-4 ">Code</label>
+                    <div class="col-sm-6">
+                        <input id="code" name="code" type="text" ng-model="vm.code" class="form-control" placeholder="" autofocus/>
+                    </div>
+                    <span ng-show="userFinder.code.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="firstname" class="control-label col-sm-4 ">First Name</label>
+                    <div class="col-sm-6">
+                        <input id="firstname" name="firstname" type="text" ng-model="vm.firstname" class="form-control" placeholder="" />
+                    </div>
+                    <span ng-show="userFinder.firstname.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="lastname" class="control-label col-sm-4 ">Last Name</label>
+                    <div class="col-sm-6">
+                        <input id="lastname" name="lastname" type="text" ng-model="vm.lastname" class="form-control" placeholder="" />
+                    </div>
+                    <span ng-show="userFinder.lastname.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="dept" class="control-label col-sm-4 ">Dept</label>
+                    <div class="col-sm-6">
+                        <input id="dept" name="dept" type="text" ng-model="vm.dept" class="form-control" placeholder="" />
+                    </div>
+                    <span ng-show="userFinder.password.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="role" class="control-label col-sm-4 ">Role</label>
+                    <div class="col-sm-6">
+                        <input id="role" name="role" type="text" ng-model="vm.role" class="form-control" placeholder="" />
+                    </div>
+                    <span ng-show="userFinder.role.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="admingroup" class="control-label col-sm-4 ">Admin Groups</label>
+                    <div class="col-sm-6">
+                        <select id="role2" name="role2" class="form-control" ng-model="vm.admingroup" ng-options="lup.id as lup.name for lup in lookup.groups | orderBy: 'name' " required>
+                            <option style="display:none" value="">?</option>
+                        </select>
+                        <!--<input id="admingroup" name="admingroup" type="text" ng-model="vm.admingroup" class="form-control" placeholder="" />-->
+                    </div>
+                    <span ng-show="userFinder.admingroup.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="toolbarStyle">
+                <button class="btn btn-info btn-sm glyphicon glyphicon-plus " type="button" ng-click="vm.Add()" ng-hide="islookup"> Add</button>
+                <button class="btn btn-info btn-sm glyphicon glyphicon-trash " type="button" ng-click="vm.Clear()"> Clear</button>
+                <button class="btn btn-warning btn-sm glyphicon glyphicon-search " type="submit" ng-click="vm.Find()"> Find</button>
+                {{totalItems}} records found.
+            </div>
+        </form>
+        <div>
+            <div class="ag-fresh" ag-grid="gridOptions" style="height: 500px;"></div>
+        </div>
+    </div>
+</div>

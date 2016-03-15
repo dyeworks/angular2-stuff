@@ -1,0 +1,189 @@
+﻿<style>
+    .modal-body {
+        max-height: 800px;
+    }
+
+    .modal-dialog {
+        width: 80%;
+    }
+</style>
+<div ng-controller="appUserEdit as vm">
+    <form name="form" ng-submit="vm.save()" class="form-horizontal" novalidate>
+        <div>
+            <div class="toolbarStyle">
+                <button class="btn btn-success btn-sm glyphicon glyphicon-search " type="button" ng-click="vm.save()" ng-disabled="form.$invalid || form.$prestine"> Save</button>
+                <span ng-show="form.$dirty && form.$valid" class="say">Changes need saving</span>
+                <span ng-show="form.$invalid" class="error"> The form has errors, please correct them</span>
+                <!--{{form.$error}}-->
+            </div>
+        </div>
+        <fieldset>
+            <div class="form-group">
+                <label for="id" class="control-label col-sm-2">id:</label>
+                <div class="col-sm-1">
+                    <input name="id" type="text" class="form-control" ng-model="vm.form.id" placeholder="?" title="unique id" readonly required />
+                </div>
+                <label for="archive" class="control-label col-sm-1">Archived</label>
+                <div class="col-sm-1">
+                    <input name="archive" type="checkbox" class="" ng-model="vm.form.archive" placeholder="?" title="bad record, do not use" />
+                </div>
+                <button class="btn btn-info btn-sm glyphicon glyphicon-warning-sign " type="button" ng-click="vm.reset()"> Reset Password</button>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="form-group " ng-class="{ 'has-error has-feedback': form.code.$error.required }">
+                <label for="code" class="control-label col-sm-2">
+                    Code
+                </label>
+                <div class="col-sm-4">
+                    <input name="code" type="text" class="form-control" ng-model="vm.form.code" placeholder="?" maxlength="99" title="code reference" required />
+                    <span ng-show="form.code.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="firstname" class="control-label col-sm-2">
+                    Firstname
+                </label>
+                <div class="col-sm-4">
+                    <input name="firstname" type="text" class="form-control" ng-model="vm.form.firstname" placeholder="?" maxlength="99" title="description" required />
+                    <span ng-show="form.firstname.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="lastname" class="control-label col-sm-2">
+                    Lastname
+                </label>
+                <div class="col-sm-4">
+                    <input id="lastname" name="lastname" type="text" class="form-control" ng-model="vm.form.lastname" placeholder="?" title="stored code value" required />
+                    <span ng-show="form.lastname.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="dept" class="control-label col-sm-2">
+                    Old Dept
+                </label>
+                <div class="col-sm-4">
+                    <input id="dept" name="dept" type="text" class="form-control" ng-model="vm.form.dept" placeholder="?" title="stored code value" />
+                    <span ng-show="form.dept.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="dept2" class="control-label col-sm-2">
+                    new Dept
+                </label>
+                <div class="col-sm-4">
+                    <select id="dept2" name="dept2" class="form-control" ng-model="vm.form.dept2" ng-options="lup.id as lup.name for lup in lookup.depts | orderBy: 'name' " required>
+                        <option style="display:none" value="">?</option>
+                    </select>
+                    <span ng-show="form.dept2.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="job" class="control-label col-sm-2">
+                    Job
+                </label>
+                <div class="col-sm-4">
+                    <select id="job" name="job" class="form-control" ng-model="vm.form.job" ng-options="lup.id as lup.name for lup in lookup.jobs | orderBy: 'name' " required>
+                        <option style="display:none" value="">?</option>
+                    </select>
+                    <span ng-show="form.job.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="role2" class="control-label col-sm-2">new Role</label>
+                <div class="col-sm-4">
+                    <select id="rolenew" name="rolenew" class="form-control" ng-model="vm.form.role2" ng-options="lup.id as lup.name for lup in lookup.roles | orderBy: 'name' " required>
+                        <option style="display:none" value="">?</option>
+                    </select>
+                    <span ng-show="form.rolenew.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <!--<div class="form-group has-feedback">
+                <label for="role" class="control-label col-sm-2">old role</label>
+                <div class="col-sm-4">
+                    <input id="role" name="role" type="text" class="form-control" ng-model="vm.form.role" placeholder="?" title="stored code value" />
+                    <span ng-show="form.role.$error.required" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>-->
+            <div class="form-group has-feedback">
+                <label for="phone" class="control-label col-sm-2">phone</label>
+                <div class="col-sm-4">
+                    <input id="phone" name="phone" type="text" class="form-control" ng-model="vm.form.phone" placeholder="?" title="stored code value" />
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="mobile" class="control-label col-sm-2">mobile</label>
+                <div class="col-sm-4">
+                    <input id="mobile" name="mobile" type="text" class="form-control" ng-model="vm.form.mobile" placeholder="?" title="stored code value" />
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="email" class="control-label col-sm-2">
+                    email
+                </label>
+                <div class="col-sm-4">
+                    <input id="email" name="email" type="text" class="form-control" ng-model="vm.form.email" placeholder="?" title="stored code value" />
+                    <span ng-show="form.email.$error.email" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="email" class="control-label col-sm-2">
+                    
+                </label>
+                <div class="col-sm-1">
+                    <label for="rtp" class="control-label ">rtp </label>
+                    <input id="rtp" name="rtp" type="checkbox" class="" ng-model="vm.form.rtp" placeholder="?" title="stored code value" />
+                </div>
+                <div class="col-sm-1">
+                    <label for="add" class="control-label ">address </label>
+                    <input id="add" name="add" type="checkbox" class="" ng-model="vm.form.add" placeholder="?" title="stored code value" />
+                </div>
+                <div class="col-sm-1">
+                    <label for="pet" class="control-label ">petrol </label>
+                    <input id="pet" name="pet" type="checkbox" class="" ng-model="vm.form.pet" placeholder="?" title="stored code value" />
+                </div>
+                <div class="col-sm-1">
+                    <label for="exp" class="control-label ">explosives </label>
+                    <input id="exp" name="exp" type="checkbox" class="" ng-model="vm.form.exp" placeholder="?" title="stored code value" />
+                </div>
+                <div class="col-sm-1">
+                    <label for="stn" class="control-label ">station user </label>
+                    <input id="stn" name="stn" type="checkbox" class="" ng-model="vm.form.stn" placeholder="?" title="stored code value" />
+                </div>
+            </div>
+            <div class="well well-sm">
+                <h4>Email Groups</h4>
+                <div >
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Group
+                            </div>
+                            <div class="col-sm-1">
+                            </div>
+                        </div>
+                        <div ng-repeat="group in vm.form.admingroups">
+                            <div >
+                                <div class="form-group">
+                                    <div class="col-sm-2">
+                                        <select id="role2" name="role2" class="form-control" ng-model="group.code" ng-options="lup.code as lup.name for lup in lookup.groups | orderBy: 'name' " required>
+                                            <option style="display:none" value="">?</option>
+                                        </select>
+                                        <span ng-show="!group.code" data-toggle="tooltip" title="value required" class="glyphicon glyphicon-warning-sign error form-control-feedback" ></span>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" class="btn btn-xs btn-info" ng-click="admingroupremoveLine($index)"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" ng-click="admingroupaddLine()" class="btn bt btn-info"><span class="glyphicon glyphicon-warning-sign"></span> Add to Group</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
