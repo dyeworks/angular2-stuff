@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './LoggedInOutlet', './home/home', './login/login', './signup/signup'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,43 +10,53 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var AppComponent, HEROES;
+    var core_1, router_1, LoggedInOutlet_1, home_1, login_1, signup_1;
+    var App;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (LoggedInOutlet_1_1) {
+                LoggedInOutlet_1 = LoggedInOutlet_1_1;
+            },
+            function (home_1_1) {
+                home_1 = home_1_1;
+            },
+            function (login_1_1) {
+                login_1 = login_1_1;
+            },
+            function (signup_1_1) {
+                signup_1 = signup_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
-                    this.title = 'Tour of Heroes';
-                    this.heroes = HEROES;
+            //let template = require('./app.html');
+            App = (function () {
+                function App(router) {
+                    this.router = router;
                 }
-                AppComponent.prototype.onSelect = function (hero) { this.selectedHero = hero; };
-                AppComponent = __decorate([
+                App = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: "\n    <div *ngIf=\"selectedHero\">\n  <h1>{{title}}</h1>\n  <h2>{{selectedHero.name}} details!</h2>\n  <div><label>id: </label>{{selectedHero.id}}</div>\n  <div>\n    <label>name: </label>\n    <div><input [(ngModel)]=\"selectedHero.name\" placeholder=\"name\"></div>\n  </div>\n  </div>\n  <h2>My Heroes</h2>\n  <ul class=\"heroes\">\n  <li *ngFor=\"#hero of heroes\" (click)=\"onSelect(hero)\" [class.selected]=\"hero === selectedHero\">\n  <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n</li>\n</ul>\n  ",
-                        styles: ["\n  .selected {\n    background-color: #CFD8DC !important;\n    color: white;\n  }\n  .heroes {\n    margin: 0 0 2em 0;\n    list-style-type: none;\n    padding: 0;\n    width: 10em;\n  }\n  .heroes li {\n    cursor: pointer;\n    position: relative;\n    left: 0;\n    background-color: #EEE;\n    margin: .5em;\n    padding: .3em 0;\n    height: 1.6em;\n    border-radius: 4px;\n  }\n  .heroes li.selected:hover {\n    background-color: #BBD8DC !important;\n    color: white;\n  }\n  .heroes li:hover {\n    color: #607D8B;\n    background-color: #DDD;\n    left: .1em;\n  }\n  .heroes .text {\n    position: relative;\n    top: -3px;\n  }\n  .heroes .badge {\n    display: inline-block;\n    font-size: small;\n    color: white;\n    padding: 0.8em 0.7em 0 0.7em;\n    background-color: #607D8B;\n    line-height: 1em;\n    position: relative;\n    left: -1px;\n    top: -4px;\n    height: 1.8em;\n    margin-right: .8em;\n    border-radius: 4px 0 0 4px;\n  }\n"]
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                        selector: 'auth-app'
+                    }),
+                    core_1.View({
+                        //template: template,
+                        directives: [LoggedInOutlet_1.LoggedInRouterOutlet]
+                    }),
+                    router_1.RouteConfig([
+                        { path: '/', redirectTo: ['/Home'] },
+                        { path: '/home', component: home_1.Home, as: 'Home' },
+                        { path: '/login', component: login_1.Login, as: 'Login' },
+                        { path: '/signup', component: signup_1.Signup, as: 'Signup' }
+                    ]), 
+                    __metadata('design:paramtypes', [router_1.Router])
+                ], App);
+                return App;
             }());
-            exports_1("AppComponent", AppComponent);
-            HEROES = [
-                { "id": 11, "name": "Mr. Nice" },
-                { "id": 12, "name": "Narco" },
-                { "id": 13, "name": "Bombasto" },
-                { "id": 14, "name": "Celeritas" },
-                { "id": 15, "name": "Magneta" },
-                { "id": 16, "name": "RubberMan" },
-                { "id": 17, "name": "Dynama" },
-                { "id": 18, "name": "Dr IQ" },
-                { "id": 19, "name": "Magma" },
-                { "id": 20, "name": "Tornado" }
-            ];
+            exports_1("App", App);
         }
     }
 });
