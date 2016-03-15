@@ -25,14 +25,15 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
             }],
         execute: function() {
             DashboardComponent = (function () {
-                function DashboardComponent(_heroService, _router) {
-                    this._heroService = _heroService;
+                function DashboardComponent(_router, _heroService) {
                     this._router = _router;
+                    this._heroService = _heroService;
                     this.heroes = [];
                 }
                 DashboardComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
+                    this._heroService.getHeroes()
+                        .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
                 };
                 DashboardComponent.prototype.gotoDetail = function (hero) {
                     var link = ['HeroDetail', { id: hero.id }];
@@ -44,7 +45,7 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
                         templateUrl: 'app/dashboard.component.html',
                         styleUrls: ['app/dashboard.component.css']
                     }), 
-                    __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
                 ], DashboardComponent);
                 return DashboardComponent;
             }());
@@ -56,5 +57,5 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
 Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
-*/ 
+*/
 //# sourceMappingURL=dashboard.component.js.map

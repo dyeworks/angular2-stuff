@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './hero.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './hero.service', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,18 +10,18 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, hero_service_1;
+    var core_1, hero_service_1, router_1;
     var HeroDetailComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
-            },
             function (hero_service_1_1) {
                 hero_service_1 = hero_service_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             HeroDetailComponent = (function () {
@@ -32,7 +32,8 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
                 HeroDetailComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     var id = +this._routeParams.get('id');
-                    this._heroService.getHero(id).then(function (hero) { return _this.hero = hero; });
+                    this._heroService.getHero(id)
+                        .then(function (hero) { return _this.hero = hero; });
                 };
                 HeroDetailComponent.prototype.goBack = function () {
                     window.history.back();
@@ -41,7 +42,6 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
                     core_1.Component({
                         selector: 'my-hero-detail',
                         templateUrl: 'app/hero-detail.component.html',
-                        styleUrls: ['app/hero-detail.component.css'],
                         inputs: ['hero']
                     }), 
                     __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.RouteParams])
@@ -52,9 +52,4 @@ System.register(['angular2/core', 'angular2/router', './hero.service'], function
         }
     }
 });
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/ 
-//# sourceMappingURL=hero-detail.component.js.map
+//# sourceMappingURL=herodetail.component.js.map
