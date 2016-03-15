@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, common_1, http_1, headers_1;
-    var styles, template, Login;
+    var Login;
     return {
         setters:[
             function (core_1_1) {
@@ -30,8 +30,6 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
                 headers_1 = headers_1_1;
             }],
         execute: function() {
-            styles = require('./login.css');
-            template = require('./login.html');
             Login = (function () {
                 function Login(router, http) {
                     this.router = router;
@@ -60,8 +58,8 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
                     }),
                     core_1.View({
                         directives: [router_1.RouterLink, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES],
-                        template: template,
-                        styles: [styles]
+                        templateUrl: './login.html',
+                        styleUrls: ['./login.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, http_1.Http])
                 ], Login);

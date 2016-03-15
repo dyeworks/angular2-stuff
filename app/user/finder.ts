@@ -1,6 +1,6 @@
 /* global angular */
 import {Component} from 'angular2/core';
-import {Hero, HeroService}   from './hero.service';
+import {DataService}   from '../common/data';
 //var gridOptions;
 //var heroService;
 //import * as core from 'angular2/core';
@@ -10,7 +10,7 @@ import {Hero, HeroService}   from './hero.service';
     selector: 'gridapp',
     template: `<ag-grid-ng2 #gapp class="ag-fresh" style="height: 300px; width:850px" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" enableSorting="true" enableColResize="true" enableFilter="true"></ag-grid-ng2>`,
     directives: [(<any>window).ag.grid.AgGridNg2],
-    providers: [HeroService]
+    providers: [DataService]
 })
 export class GridViewComponent {
 
@@ -19,7 +19,7 @@ export class GridViewComponent {
     private totalItems: Number;
     private gridOptions: Object;
 
-    constructor(private _heroService: HeroService) {
+    constructor(private _dataService: DataService) {
 
         console.log("in Grid constructor...");
 
@@ -40,7 +40,7 @@ export class GridViewComponent {
           { field: 'stn', headerName: 'stn', width: 40 }
         ];
 
-        this._heroService.getHeroes().then(heroes => this.rowData = heroes);
+        this._dataService.getData().then(heroes => this.rowData = heroes);
         this.totalItems = 0;
         this.gridOptions = {
           rowData: this.rowData,
@@ -56,7 +56,7 @@ export class GridViewComponent {
           onCellClicked: function (param) {
               if (param.colDef.field == 'detailedit') {
 //                  var url = $state.href('user/edit', { id: param.data.id });
-                  window.open(url, '_blank');
+//                  window.open(url, '_blank');
               }
               if (param.colDef.field == 'detailpick') {
                   // close window and return values

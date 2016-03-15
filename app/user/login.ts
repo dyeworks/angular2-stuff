@@ -6,6 +6,8 @@ import {FormBuilder, Validators} from 'angular2/common'
   templateUrl: './login.html'
 })
 export class loginForm {
+  private loginForm: any;
+  
   constructor(fb: FormBuilder) {
 
     this.loginForm = fb.group({

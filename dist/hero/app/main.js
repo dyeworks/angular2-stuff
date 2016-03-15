@@ -1,1 +1,0 @@
-System.register(["angular2/platform/browser","angular2/router","./hero.service","./app.component"],function(e,t){"use strict";var n,r,o,u;t&&t.id;return{setters:[function(e){n=e},function(e){r=e},function(e){o=e},function(e){u=e}],execute:function(){n.bootstrap(u.AppComponent,[r.ROUTER_PROVIDERS,o.HeroService])}}});

@@ -4,16 +4,13 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
 import { contentHeaders } from '../common/headers';
 
-let styles   = require('./login.css');
-let template = require('./login.html');
-
 @Component({
   selector: 'login'
 })
 @View({
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  template: template,
-  styles: [ styles ]
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
 export class Login {
   constructor(public router: Router, public http: Http) {

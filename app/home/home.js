@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'angular2-
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, common_1, http_1, angular2_jwt_1, router_1;
-    var styles, template, Home;
+    var Home;
     return {
         setters:[
             function (core_1_1) {
@@ -30,15 +30,13 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'angular2-
                 router_1 = router_1_1;
             }],
         execute: function() {
-            styles = require('./home.css');
-            template = require('./home.html');
             Home = (function () {
                 function Home(router, http, authHttp) {
                     this.router = router;
                     this.http = http;
                     this.authHttp = authHttp;
                     this.jwt = localStorage.getItem('jwt');
-                    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
+                    //    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
                 }
                 Home.prototype.logout = function () {
                     localStorage.removeItem('jwt');
@@ -70,8 +68,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'angular2-
                     }),
                     core_1.View({
                         directives: [common_1.CORE_DIRECTIVES],
-                        template: template,
-                        styles: [styles]
+                        templateUrl: './home.html',
+                        styleUrls: ['./home.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, http_1.Http, angular2_jwt_1.AuthHttp])
                 ], Home);

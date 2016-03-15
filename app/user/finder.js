@@ -1,4 +1,4 @@
-System.register(['angular2/core', './hero.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../common/data'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(['angular2/core', './hero.service'], function(exports_1, context
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hero_service_1;
+    var core_1, data_1;
     var GridViewComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (hero_service_1_1) {
-                hero_service_1 = hero_service_1_1;
+            function (data_1_1) {
+                data_1 = data_1_1;
             }],
         execute: function() {
             //var gridOptions;
@@ -27,9 +27,9 @@ System.register(['angular2/core', './hero.service'], function(exports_1, context
             //declare var ag: any;
             //ag.grid.initialiseAgGridWithAngular2({ core: core });
             GridViewComponent = (function () {
-                function GridViewComponent(_heroService) {
+                function GridViewComponent(_dataService) {
                     var _this = this;
-                    this._heroService = _heroService;
+                    this._dataService = _dataService;
                     console.log("in Grid constructor...");
                     this.columnDefs = [
                         { field: 'detailedit', headerName: 'Detail', width: 60, cellClass: 'glyphicon glyphicon-edit' },
@@ -47,7 +47,7 @@ System.register(['angular2/core', './hero.service'], function(exports_1, context
                         { field: 'exp', headerName: 'exp', width: 40 },
                         { field: 'stn', headerName: 'stn', width: 40 }
                     ];
-                    this._heroService.getHeroes().then(function (heroes) { return _this.rowData = heroes; });
+                    this._dataService.getData().then(function (heroes) { return _this.rowData = heroes; });
                     this.totalItems = 0;
                     this.gridOptions = {
                         rowData: this.rowData,
@@ -62,8 +62,6 @@ System.register(['angular2/core', './hero.service'], function(exports_1, context
                         },
                         onCellClicked: function (param) {
                             if (param.colDef.field == 'detailedit') {
-                                //                  var url = $state.href('user/edit', { id: param.data.id });
-                                window.open(url, '_blank');
                             }
                             if (param.colDef.field == 'detailpick') {
                                 // close window and return values
@@ -79,12 +77,11 @@ System.register(['angular2/core', './hero.service'], function(exports_1, context
                         selector: 'gridapp',
                         template: "<ag-grid-ng2 #gapp class=\"ag-fresh\" style=\"height: 300px; width:850px\" [gridOptions]=\"gridOptions\" [columnDefs]=\"columnDefs\" [rowData]=\"rowData\" enableSorting=\"true\" enableColResize=\"true\" enableFilter=\"true\"></ag-grid-ng2>",
                         directives: [window.ag.grid.AgGridNg2],
-                        providers: [hero_service_1.HeroService]
+                        providers: [data_1.DataService]
                     }), 
-                    __metadata('design:paramtypes', [(typeof (_a = typeof hero_service_1.HeroService !== 'undefined' && hero_service_1.HeroService) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [data_1.DataService])
                 ], GridViewComponent);
                 return GridViewComponent;
-                var _a;
             }());
             exports_1("GridViewComponent", GridViewComponent);
         }
