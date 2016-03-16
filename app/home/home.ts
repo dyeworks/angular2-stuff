@@ -1,7 +1,7 @@
 import { Component, View } from 'angular2/core';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
-import { AuthHttp } from 'angular2-jwt';
+//import { AuthHttp } from 'angular2-jwt';
 import { Router } from 'angular2/router';
 
 @Component({
@@ -9,8 +9,8 @@ import { Router } from 'angular2/router';
 })
 @View({
   directives: [CORE_DIRECTIVES],
-  templateUrl: './home.html',
-  styleUrls: ['./home.css']
+  templateUrl: './app/home/home.html',
+  styleUrls: ['./app/home/home.css']
 })
 export class Home {
   jwt: string;
@@ -18,7 +18,7 @@ export class Home {
   response: string;
   api: string;
 
-  constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+  constructor(public router: Router, public http: Http) { //}, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('jwt');
 //    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
   }
@@ -48,11 +48,11 @@ export class Home {
     }
     if (type === 'Secured') {
       // For protected routes, use AuthHttp
-      this.authHttp.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
+      //this.authHttp.get(url)
+      //  .subscribe(
+      //    response => this.response = response.text(),
+      //    error => this.response = error.text()
+      //  );
     }
   }
 }

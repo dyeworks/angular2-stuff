@@ -58,8 +58,8 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
                     }),
                     core_1.View({
                         directives: [router_1.RouterLink, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES],
-                        templateUrl: './login.html',
-                        styleUrls: ['./login.css']
+                        templateUrl: './app/login/login.html',
+                        styleUrls: ['./app/login/login.css']
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, http_1.Http])
                 ], Login);

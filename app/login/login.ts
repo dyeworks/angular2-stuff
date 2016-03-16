@@ -9,8 +9,8 @@ import { contentHeaders } from '../common/headers';
 })
 @View({
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  templateUrl: './app/login/login.html',
+  styleUrls: ['./app/login/login.css']
 })
 export class Login {
   constructor(public router: Router, public http: Http) {

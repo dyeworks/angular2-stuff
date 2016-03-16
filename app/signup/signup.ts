@@ -4,16 +4,13 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http } from 'angular2/http';
 import { contentHeaders } from '../common/headers';
 
-let styles   = require('./signup.css');
-let template = require('./signup.html');
-
 @Component({
   selector: 'signup'
 })
 @View({
   directives: [ RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
-  template: template,
-  styles: [ styles ]
+  templateUrl: './app/signup/signup.css',
+  styleUrls: [ './app/signup/signup.html' ]
 })
 export class Signup {
   constructor(public router: Router, public http: Http) {
