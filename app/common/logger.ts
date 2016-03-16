@@ -1,15 +1,9 @@
-import {Injectable, provide} from 'angular2/core';
-
-// do whatever you want for logging here, add methods for log levels etc.
+import {Injectable} from 'angular2/core';
 @Injectable()
-export class MyLogger {
-
-  public log(logMsg:string) {
-    console.log(logMsg);
+export class Logger {
+  logs:string[] = []; // capture logs for testing
+  log(message: string){
+    this.logs.push(message);
+    console.log(message);
   }
 }
-
-export var LOGGING_PROVIDERS: Provider[] = [
-      provide(MyLogger, {useClass: MyLogger}),
-
-    ];

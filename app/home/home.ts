@@ -17,6 +17,8 @@ export class Home {
   decodedJwt: string;
   response: string;
   api: string;
+  columnDefs: any;
+  rowData: any;
 
   constructor(public router: Router, public http: Http) { //}, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('jwt');

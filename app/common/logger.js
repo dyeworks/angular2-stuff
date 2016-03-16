@@ -11,30 +11,28 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var MyLogger, LOGGING_PROVIDERS;
+    var Logger;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            // do whatever you want for logging here, add methods for log levels etc.
-            MyLogger = (function () {
-                function MyLogger() {
+            Logger = (function () {
+                function Logger() {
+                    this.logs = []; // capture logs for testing
                 }
-                MyLogger.prototype.log = function (logMsg) {
-                    console.log(logMsg);
+                Logger.prototype.log = function (message) {
+                    this.logs.push(message);
+                    console.log(message);
                 };
-                MyLogger = __decorate([
+                Logger = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], MyLogger);
-                return MyLogger;
+                ], Logger);
+                return Logger;
             }());
-            exports_1("MyLogger", MyLogger);
-            exports_1("LOGGING_PROVIDERS", LOGGING_PROVIDERS = [
-                core_1.provide(MyLogger, { useClass: MyLogger }),
-            ]);
+            exports_1("Logger", Logger);
         }
     }
 });

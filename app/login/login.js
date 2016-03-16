@@ -39,7 +39,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
                     var _this = this;
                     event.preventDefault();
                     var body = JSON.stringify({ username: username, password: password });
-                    this.http.post('http://localhost:3001/sessions/create', body, { headers: headers_1.contentHeaders })
+                    var lineold = 'http://localhost:3001/sessions/create';
+                    var line = 'http://pump.cloudapp.net:81/login/CHE/8cb2237d0679ca88db6464eac60da96345513964';
+                    this.http.get(line, { headers: headers_1.contentHeaders })
                         .subscribe(function (response) {
                         localStorage.setItem('jwt', response.json().id_token);
                         _this.router.parent.navigateByUrl('/home');
