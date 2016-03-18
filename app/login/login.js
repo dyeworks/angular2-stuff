@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular2/http', '../common/headers'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/common', '../common/data'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, http_1, headers_1;
+    var core_1, router_1, common_1, data_1;
     var Login;
     return {
         setters:[
@@ -23,32 +23,30 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
             function (common_1_1) {
                 common_1 = common_1_1;
             },
-            function (http_1_1) {
-                http_1 = http_1_1;
-            },
-            function (headers_1_1) {
-                headers_1 = headers_1_1;
+            function (data_1_1) {
+                data_1 = data_1_1;
             }],
         execute: function() {
             Login = (function () {
-                function Login(router, http) {
+                function Login(router, dataservice) {
                     this.router = router;
-                    this.http = http;
+                    this.dataservice = dataservice;
                 }
                 Login.prototype.login = function (event, username, password) {
-                    var _this = this;
-                    event.preventDefault();
-                    var body = JSON.stringify({ username: username, password: password });
-                    var lineold = 'http://localhost:3001/sessions/create';
-                    var line = 'http://pump.cloudapp.net:81/login/CHE/8cb2237d0679ca88db6464eac60da96345513964';
-                    this.http.get(line, { headers: headers_1.contentHeaders })
-                        .subscribe(function (response) {
-                        localStorage.setItem('jwt', response.json().id_token);
-                        _this.router.parent.navigateByUrl('/home');
-                    }, function (error) {
-                        alert(error.text());
-                        console.log(error.text());
-                    });
+                    var l = this.dataservice.login(username, password);
+                    /*      .subscribe(
+                          data => {
+                            this.data = 'ok';
+                            localStorage.setItem('wytoken', data.token);
+                            localStorage.setItem('user', data);
+                            this.router.parent.navigateByUrl('/home');
+                          },
+                          err => {
+                            alert(err.text());
+                            console.log(err.text());
+                          }
+                        );
+                        */
                 };
                 Login.prototype.signup = function (event) {
                     event.preventDefault();
@@ -63,7 +61,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', 'angular
                         templateUrl: './app/login/login.html',
                         styleUrls: ['./app/login/login.css']
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, http_1.Http])
+                    __metadata('design:paramtypes', [router_1.Router, data_1.DataService])
                 ], Login);
                 return Login;
             }());

@@ -26,7 +26,8 @@ System.config({
   },
   map: {
     'ag-grid-ng2': 'node_modules/ag-grid-ng2',
-    'ag-grid': 'node_modules/ag-grid'
+    'ag-grid': 'node_modules/ag-grid',
+    'CryptoJS': 'node_modules/crypto-js'
   }
 
 });

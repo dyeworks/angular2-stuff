@@ -34,8 +34,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'angular2/
                 function Dash1(router, http) {
                     this.router = router;
                     this.http = http;
-                    this.jwt = localStorage.getItem('jwt');
-                    //    this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
                     // put columnDefs directly onto the controller
                     this.columnDefs = [
                         { headerName: "Make", field: "make" },
@@ -49,10 +47,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'angular2/
                         { make: "Porsche", model: "Boxter", price: 72000 }
                     ];
                 }
-                Dash1.prototype.logout = function () {
-                    localStorage.removeItem('jwt');
-                    this.router.parent.navigateByUrl('/login');
-                };
                 Dash1 = __decorate([
                     //
                     core_1.Component({

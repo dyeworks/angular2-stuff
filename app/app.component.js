@@ -40,12 +40,90 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(logger) {
+                function AppComponent(logger, dataservice, router) {
+                    this.dataservice = dataservice;
+                    this.router = router;
                     this.title = 'Start app';
                 }
+                AppComponent.prototype.logout = function () {
+                    localStorage.removeItem('wytoken');
+                    this.token = '';
+                    this.user = {};
+                    this.router.parent.navigateByUrl('/login');
+                };
                 AppComponent.prototype.ngOnInit = function () {
                     console.log('yes');
+                    // get username
+                    // get codetree
+                    // get trackstep
                     //this.logger.log('test');
+                };
+                AppComponent.prototype.getUser = function () {
+                    if (this.dataservice.isFresh('user', 43200)) {
+                        this.token = this.dataservice.load('wytoken');
+                        this.user = this.dataservice.load('user');
+                        console.log('got User from cache');
+                        // set up routing
+                        return;
+                    }
+                    else {
+                        this.router.parent.navigateByUrl('/login');
+                        return;
+                    }
+                };
+                AppComponent.prototype.getCodetree = function () {
+                    if (this.dataservice.isFresh('codetree', 43200)) {
+                        this.codetree = this.dataservice.load('codetree');
+                        console.log('got codetree from cache', '');
+                        return;
+                    }
+                    else {
+                        if (!this.user)
+                            return; // if we are not logged in we have no token
+                        var query = { id: 1 };
+                        console.log('loading codetree from server', '');
+                        var req = { collection: 'Cache', query: query };
+                        var z = this.dataservice.get(req);
+                    }
+                };
+                AppComponent.prototype.getTrackStep = function () {
+                    if (this.tracksteps.length > 0)
+                        return;
+                    if (this.dataservice.isFresh('tracksteps', 43200)) {
+                        this.tracksteps = this.dataservice.load('tracksteps');
+                        console.log('got tracksteps from cache');
+                        return;
+                    }
+                    if (!this.user)
+                        return; // if we are not logged in we have no token
+                    var query = { archive: false };
+                    var req = { collection: 'Tracks', query: query };
+                    var z = this.dataservice.get(req);
+                    // .then(function (data) {
+                    //     this.tracksteps = data;
+                    //     this.dataservice.save('tracksteps', data);
+                    //     console.log('got tracksteps from database');
+                    // }
+                    //);
+                };
+                AppComponent.prototype.printpr = function () {
+                    var OLECMDID = 7;
+                    /* OLECMDID values:
+                     * 6 - print
+                     * 7 - print preview
+                     * 1 - open window
+                     * 4 - Save As
+                    */
+                    var PROMPT = 1; // 2 DONTPROMPTUSER
+                    var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+                    document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
+                    //WebBrowser1.ExecWB(OLECMDID, PROMPT);
+                    //WebBrowser1.outerHTML = "";
+                };
+                AppComponent.prototype.emailto = function () {
+                    //var body = '%0D%0D%0DClick here: ' + window.location.href + ' to see the content.%0D%0DFrom:%0D' + this.user.name;
+                    //body = body.replace(/#/, '%23');
+                    //window.open('mailto: ?subject=PRD link&body=' + body);
                 };
                 AppComponent = __decorate([
                     core_1.Component({
@@ -64,7 +142,7 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
                         { path: './signup', component: signup_1.Signup, name: 'Signup' },
                         { path: './dash1', component: dash1_1.Dash1, name: 'Dash1' }
                     ]), 
-                    __metadata('design:paramtypes', [logger_1.Logger])
+                    __metadata('design:paramtypes', [logger_1.Logger, data_1.DataService, router_1.Router])
                 ], AppComponent);
                 return AppComponent;
             }());

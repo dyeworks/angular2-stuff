@@ -22,9 +22,45 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function Logger() {
                     this.logs = []; // capture logs for testing
                 }
-                Logger.prototype.log = function (message) {
+                Logger.prototype.log1 = function (message) {
                     this.logs.push(message);
                     console.log(message);
+                };
+                Logger.prototype.log = function (message, data, source, showToast) {
+                    this.logIt(message, data, source, showToast, 'info');
+                };
+                Logger.prototype.logWarning = function (message, data, source, showToast) {
+                    this.logIt(message, data, source, showToast, 'warning');
+                };
+                Logger.prototype.logSuccess = function (message, data, source, showToast) {
+                    this.logIt(message, data, source, showToast, 'success');
+                };
+                Logger.prototype.logError = function (message, data, source, showToast) {
+                    this.logIt(message, data, source, showToast, 'error');
+                };
+                Logger.prototype.logDebug = function (message, data, source, showToast, toastType) {
+                    source = source ? '[' + source + '] ' : '';
+                    console.debug(source, message, data);
+                    if (toastType == 'debug') {
+                    }
+                };
+                Logger.prototype.logIt = function (message, data, source, showToast, toastType) {
+                    source = source ? '[' + source + '] ' : '';
+                    if (toastType === 'error') {
+                        console.error(source, message, data);
+                        //toastr.error(message);
+                        return;
+                    }
+                    if (toastType === 'warning') {
+                        console.warn(source, message, data);
+                    }
+                    else if (toastType === 'success') {
+                        console.info(source, message, data);
+                    }
+                    else {
+                        console.debug(source, message, data);
+                    }
+                    //}
                 };
                 Logger = __decorate([
                     core_1.Injectable(), 
