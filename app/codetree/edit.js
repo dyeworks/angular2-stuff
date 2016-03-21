@@ -97,7 +97,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                 }
                 CodeTreeEdit = __decorate([
                     core_1.Component({
-                        selector: 'codetreeedit'
+                        selector: 'codetree/edit'
                     }),
                     core_1.View({
                         directives: [router_1.RouterLink, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES],

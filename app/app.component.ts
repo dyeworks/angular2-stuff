@@ -7,6 +7,8 @@ import {Login} from './login/login';
 import {Signup} from './signup/signup';
 import {Dash1} from './dashboard/dash1';
 import {Logger} from './common/logger';
+import {CodeTreeView} from './codetree/treeview';
+import {CodeTreeEdit} from './codetree/edit';
 
 @Component({
   selector: 'my-app',
@@ -17,6 +19,8 @@ import {Logger} from './common/logger';
       <a [routerLink]="['Login']">Login</a>
       <a [routerLink]="['Signup']">Signup</a>
       <a [routerLink]="['Dash1']">Dashboard1</a>
+      <a [routerLink]="['CodeTreeView']">CodeTreeView</a>
+      <a [routerLink]="['CodeTreeEdit']">CodeTreeEdit</a>
     </nav>
     <router-outlet></router-outlet>
   `,
@@ -31,6 +35,8 @@ import {Logger} from './common/logger';
   { path: '/home', component: Home, name: 'Home', useAsDefault: true },
   { path: './login', component: Login, name: 'Login' },
   { path: './signup', component: Signup, name: 'Signup' },
+  { path: './codetree/view', component: CodeTreeView, name: 'CodeTreeView' },
+  { path: './codetree/edit', component: CodeTreeEdit, name: 'CodeTreeEdit' },
   { path: './dash1', component: Dash1, name: 'Dash1' }
 ])
 export class AppComponent {

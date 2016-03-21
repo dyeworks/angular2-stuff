@@ -4,7 +4,7 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import {DataService} from '../common/data'
 
 @Component({
-  selector: 'codetreeedit'
+  selector: 'codetree/edit'
 })
 @View({
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],

@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, common_1, data_1, main_1;
-    var CodeTree;
+    var CodeTreeView;
     return {
         setters:[
             function (core_1_1) {
@@ -30,17 +30,22 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                 main_1 = main_1_1;
             }],
         execute: function() {
-            CodeTree = (function () {
-                function CodeTree(router, dataservice) {
+            CodeTreeView = (function () {
+                function CodeTreeView(router, dataservice) {
                     this.router = router;
                     this.dataservice = dataservice;
                     // put columnDefs directly onto the controller
                     this.columnDefs = [
                         { headerName: "Name", field: "name", width: 250,
+                            icons: {
+                                groupExpanded: '<i class="fa fa-minus-square-o"/>',
+                                groupContracted: '<i class="fa fa-plus-square-o"/>'
+                            },
                             cellRenderer: {
                                 renderer: 'group',
                                 innerRenderer: innerCellRenderer
-                            } },
+                            }
+                        },
                         { headerName: "Size", field: "size", width: 70, cellStyle: sizeCellStyle },
                         { headerName: "Type", field: "type", width: 150 },
                         { headerName: "Date Modified", field: "dateModified", width: 150 }
@@ -170,7 +175,8 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                             ]
                         }
                     ];
-                    var gridOptions = {
+                    this.showToolPanel = true;
+                    this.gridOptions = {
                         columnDefs: this.columnDefs,
                         rowData: this.rowData,
                         rowSelection: 'multiple',
@@ -193,8 +199,15 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                             groupExpanded: '<i class="fa fa-minus-square-o"/>',
                             groupContracted: '<i class="fa fa-plus-square-o"/>'
                         },
-                        onRowClicked: rowClicked
+                        onRowClicked: this.onRowSelected
                     };
+                    /*
+                    function onCellClicked($event){
+                      console.log('cellclick');
+                    }
+                    function onRowSelected($event){
+                      console.log('rowclick');
+                    }
                     function rowClicked(params) {
                         var node = params.node;
                         var path = node.data.name;
@@ -204,6 +217,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                         }
                         document.querySelector('#selectedFile').innerHTML = path;
                     }
+                    */
                     function sizeCellStyle() {
                         return { 'text-align': 'right' };
                     }
@@ -215,25 +229,56 @@ System.register(['angular2/core', 'angular2/router', 'angular2/common', '../comm
                         else {
                             image = 'file';
                         }
-                        var imageFullUrl = '/example-file-browser/' + image + '.png';
+                        var imageFullUrl = '/content/' + image + '.png';
                         return '<img src="' + imageFullUrl + '" style="padding-left: 4px;" /> ' + params.data.name;
                     }
                 }
-                CodeTree = __decorate([
+                CodeTreeView.prototype.onModelUpdated = function (event) {
+                    console.log('modelchanged');
+                };
+                CodeTreeView.prototype.onCellClicked = function ($event) {
+                    console.log('cellclick');
+                };
+                CodeTreeView.prototype.onRowSelected = function ($event) {
+                    console.log('rowclick');
+                    var node = $event.node;
+                    var path = node.data.name;
+                    while (node.parent) {
+                        node = node.parent;
+                        path = node.data.name + '\\' + path;
+                    }
+                };
+                CodeTreeView.prototype.onGetNodeChildDetails = function ($event) {
+                    console.log('onGetNodeChildDetails');
+                    var node = $event.node;
+                    if (node.data.folder) {
+                        node.data.open = !node.data.open;
+                        //      agGrid.api.onGroupExpandedOrCollapsed();
+                        return {
+                            group: true,
+                            children: node.data.children,
+                            expanded: node.data.open
+                        };
+                    }
+                    else {
+                        return null;
+                    }
+                };
+                CodeTreeView = __decorate([
                     //
                     core_1.Component({
-                        selector: 'codetree'
+                        selector: 'codetree/view'
                     }),
                     core_1.View({
                         directives: [router_1.RouterLink, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES, main_1.AgGridNg2],
-                        templateUrl: './app/codetree/codetree.html',
+                        templateUrl: './app/codetree/treeview.html',
                         styleUrls: []
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, data_1.DataService])
-                ], CodeTree);
-                return CodeTree;
+                ], CodeTreeView);
+                return CodeTreeView;
             }());
-            exports_1("CodeTree", CodeTree);
+            exports_1("CodeTreeView", CodeTreeView);
         }
     }
 });

@@ -6,26 +6,35 @@ import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main'; //
 
 @Component({
-  selector: 'codetree'
+  selector: 'codetree/view'
 })
 @View({
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, AgGridNg2 ],
-  templateUrl: './app/codetree/codetree.html',
+  templateUrl: './app/codetree/treeview.html',
   styleUrls: []
 })
-export class CodeTree {
+export class CodeTreeView {
   public data:string;
   public dataerror:boolean;
   columnDefs: any;
   rowData: any;
+  id: number;
+  selectedFile: any;
+  showToolPanel: any;
+  gridOptions: any;
   constructor(public router: Router, private dataservice: DataService) {
     // put columnDefs directly onto the controller
     this.columnDefs = [
       {headerName: "Name", field: "name", width: 250,
-          cellRenderer: {
-              renderer: 'group',
-              innerRenderer: innerCellRenderer
-          }},
+        icons: {
+          groupExpanded: '<i class="fa fa-minus-square-o"/>',
+          groupContracted: '<i class="fa fa-plus-square-o"/>'
+        },
+        cellRenderer: {
+            renderer: 'group',
+            innerRenderer: innerCellRenderer
+        }
+      },
       {headerName: "Size", field: "size", width: 70, cellStyle: sizeCellStyle},
       {headerName: "Type", field: "type", width: 150},
       {headerName: "Date Modified", field: "dateModified", width: 150}
@@ -155,15 +164,16 @@ export class CodeTree {
             ]
         }
     ];
+    this.showToolPanel = true;
 
-
-    var gridOptions = {
+    this.gridOptions = {
     columnDefs: this.columnDefs,
     rowData: this.rowData,
     rowSelection: 'multiple',
     enableColResize: true,
     enableSorting: true,
     rowHeight: 20,
+
     getNodeChildDetails: function(file) {
         if (file.folder) {
             return {
@@ -179,9 +189,15 @@ export class CodeTree {
         groupExpanded: '<i class="fa fa-minus-square-o"/>',
         groupContracted: '<i class="fa fa-plus-square-o"/>'
     },
-    onRowClicked: rowClicked
-};
-
+    onRowClicked: this.onRowSelected
+  };
+/*
+function onCellClicked($event){
+  console.log('cellclick');
+}
+function onRowSelected($event){
+  console.log('rowclick');
+}
 function rowClicked(params) {
     var node = params.node;
     var path = node.data.name;
@@ -191,21 +207,54 @@ function rowClicked(params) {
     }
     document.querySelector('#selectedFile').innerHTML = path;
 }
+*/
 
-function sizeCellStyle() {
+  function sizeCellStyle() {
     return {'text-align': 'right'};
-}
+  }
 
-function innerCellRenderer(params) {
+  function innerCellRenderer(params) {
     var image;
     if (params.node.group) {
         image = params.node.level === 0 ? 'disk' : 'folder';
     } else {
         image = 'file';
     }
-    var imageFullUrl = '/example-file-browser/' + image + '.png';
+    var imageFullUrl = '/content/' + image + '.png';
     return '<img src="'+imageFullUrl+'" style="padding-left: 4px;" /> ' + params.data.name;
+  }
+
 }
+
+onModelUpdated(event) {
+    console.log('modelchanged');
+}
+onCellClicked($event){
+  console.log('cellclick');
+}
+onRowSelected($event){
+    console.log('rowclick');
+    var node = $event.node;
+    var path = node.data.name;
+    while (node.parent) {
+        node = node.parent;
+        path = node.data.name + '\\' + path;
+    }
+  }
+  onGetNodeChildDetails($event){
+    console.log('onGetNodeChildDetails');
+    var node = $event.node;
+    if (node.data.folder) {
+      node.data.open = !node.data.open;
+//      agGrid.api.onGroupExpandedOrCollapsed();
+        return {
+            group: true,
+            children: node.data.children,
+            expanded: node.data.open
+        };
+    } else {
+        return null;
+    }
 
 
   }

@@ -6,14 +6,29 @@
 <div >
     <div class="row">
         <div class="col-sm-2">
-            <button type="button" class="btn btn-small btn-success" ng-show="user.role > 29" ng-click="vm.refresh()">Refresh cache</button>
+            <button type="button" class="btn btn-small btn-success" *ngIf="dataservice.user.role > 29" (click)="refresh()">Refresh cache</button>
         </div>
         <div class="col-sm-1">
-            <button class="btn btn-small btn-info" ng-click="edit()" ng-show="selectedNode.id">Edit {{selectedNode.id}}</button>
+            <button class="btn btn-small btn-info" (click)="edit()" *ngIf="id">Edit {{id}}</button>
         </div>
         <div class="col-sm-1">
-            <button class="btn btn-small btn-info" ng-click="addchild()" ng-show="selectedNode.id">Add child to {{selectedNode.id}}</button>
+            <button class="btn btn-small btn-info" (click)="addchild()" *ngIf="id">Add child to {{id}}</button>
         </div>
     </div>
-    <ag-grid-ng2 class="ag-fresh" style="height: 100%;" [columnDefs]="columnDefs" [rowData]="rowData" ></ag-grid-ng2>
+    select node = {{selectedFile}}
+    <ag-grid-ng2 #myGrid class="ag-fresh" style="height: 100%;"
+    [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    [showToolPanel]="showToolPanel"
+    rowSelection = 'multiple'
+    enableColResize = true
+    enableSorting = true
+    rowHeight = 20
+    (modelUpdated)="onModelUpdated($event)"
+    (onGetNodeChildDetails)="onGetNodeChildDetails($event)"
+    (cellClicked)="onCellClicked($event)"
+
+
+    ></ag-grid-ng2>
 </div>

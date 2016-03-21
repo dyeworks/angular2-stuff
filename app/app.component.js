@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './common/data', './home/home', './login/login', './signup/signup', './dashboard/dash1', './common/logger'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './common/data', './home/home', './login/login', './signup/signup', './dashboard/dash1', './common/logger', './codetree/treeview', './codetree/edit'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, data_1, home_1, login_1, signup_1, dash1_1, logger_1;
+    var core_1, router_1, data_1, home_1, login_1, signup_1, dash1_1, logger_1, treeview_1, edit_1;
     var AppComponent;
     return {
         setters:[
@@ -37,6 +37,12 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
             },
             function (logger_1_1) {
                 logger_1 = logger_1_1;
+            },
+            function (treeview_1_1) {
+                treeview_1 = treeview_1_1;
+            },
+            function (edit_1_1) {
+                edit_1 = edit_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -128,7 +134,7 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>{{title}}</h1>\n    <nav>\n      <a [routerLink]=\"['Home']\">Home</a>\n      <a [routerLink]=\"['Login']\">Login</a>\n      <a [routerLink]=\"['Signup']\">Signup</a>\n      <a [routerLink]=\"['Dash1']\">Dashboard1</a>\n    </nav>\n    <router-outlet></router-outlet>\n  ",
+                        template: "\n    <h1>{{title}}</h1>\n    <nav>\n      <a [routerLink]=\"['Home']\">Home</a>\n      <a [routerLink]=\"['Login']\">Login</a>\n      <a [routerLink]=\"['Signup']\">Signup</a>\n      <a [routerLink]=\"['Dash1']\">Dashboard1</a>\n      <a [routerLink]=\"['CodeTreeView']\">CodeTreeView</a>\n      <a [routerLink]=\"['CodeTreeEdit']\">CodeTreeEdit</a>\n    </nav>\n    <router-outlet></router-outlet>\n  ",
                         styleUrls: ['app/app.component.css'],
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
@@ -140,6 +146,8 @@ System.register(['angular2/core', 'angular2/router', './common/data', './home/ho
                         { path: '/home', component: home_1.Home, name: 'Home', useAsDefault: true },
                         { path: './login', component: login_1.Login, name: 'Login' },
                         { path: './signup', component: signup_1.Signup, name: 'Signup' },
+                        { path: './codetree/view', component: treeview_1.CodeTreeView, name: 'CodeTreeView' },
+                        { path: './codetree/edit', component: edit_1.CodeTreeEdit, name: 'CodeTreeEdit' },
                         { path: './dash1', component: dash1_1.Dash1, name: 'Dash1' }
                     ]), 
                     __metadata('design:paramtypes', [logger_1.Logger, data_1.DataService, router_1.Router])
